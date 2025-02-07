@@ -1,0 +1,965 @@
+fileFormatVersion: 2
+guid: f2c344e2f9d361149b050c0e128ae957
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8627779194100689569
+    second: bananacat_0
+  - first:
+      213: -8099916316893668804
+    second: bananacat_1
+  - first:
+      213: -3111546925047667780
+    second: bananacat_2
+  - first:
+      213: 2567876981332301075
+    second: bananacat_3
+  - first:
+      213: -3604504999456236206
+    second: bananacat_4
+  - first:
+      213: -6289756713234838312
+    second: bananacat_5
+  - first:
+      213: 4354152706253486814
+    second: bananacat_6
+  - first:
+      213: 48155773443241735
+    second: bananacat_7
+  - first:
+      213: -962340106154654175
+    second: bananacat_8
+  - first:
+      213: 6608904735099448051
+    second: bananacat_9
+  - first:
+      213: -3499874410617518055
+    second: bananacat_10
+  - first:
+      213: -8758060363687266093
+    second: bananacat_11
+  - first:
+      213: -8525625262070674393
+    second: bananacat_12
+  - first:
+      213: -244376181876286531
+    second: bananacat_13
+  - first:
+      213: 7266052751420454262
+    second: bananacat_14
+  - first:
+      213: -1515018449561996583
+    second: bananacat_15
+  - first:
+      213: -8597017170519447126
+    second: bananacat_16
+  - first:
+      213: 3273975061584328083
+    second: bananacat_17
+  - first:
+      213: 742137599500307124
+    second: bananacat_18
+  - first:
+      213: -3177450511068204362
+    second: bananacat_19
+  - first:
+      213: -8871759600100174678
+    second: bananacat_20
+  - first:
+      213: -8079992780468722918
+    second: bananacat_21
+  - first:
+      213: 1853912100353912213
+    second: bananacat_22
+  - first:
+      213: -2036053144310729957
+    second: bananacat_23
+  - first:
+      213: 7649254921660485024
+    second: bananacat_24
+  - first:
+      213: 2354340310555943593
+    second: bananacat_25
+  - first:
+      213: -3698089519657274332
+    second: bananacat_26
+  - first:
+      213: -4815565226934474932
+    second: bananacat_27
+  - first:
+      213: 2754403106332085764
+    second: bananacat_28
+  - first:
+      213: 7569516919615304022
+    second: bananacat_29
+  - first:
+      213: -4038981756883041925
+    second: bananacat_30
+  - first:
+      213: -3400944038485087985
+    second: bananacat_31
+  - first:
+      213: 3530389934768915423
+    second: bananacat_32
+  - first:
+      213: -5231196856842182483
+    second: bananacat_33
+  - first:
+      213: 6059865219811897741
+    second: bananacat_34
+  - first:
+      213: -2263647567505932158
+    second: bananacat_35
+  - first:
+      213: -1711987300682226756
+    second: bananacat_36
+  - first:
+      213: 5611505335821677282
+    second: bananacat_37
+  - first:
+      213: 5748389835111446957
+    second: bananacat_38
+  - first:
+      213: -455555659044871987
+    second: bananacat_39
+  - first:
+      213: 2752953099055369834
+    second: bananacat_40
+  - first:
+      213: 7611008978640731462
+    second: bananacat_41
+  - first:
+      213: 1055631991397479043
+    second: bananacat_42
+  - first:
+      213: 4047561936414053587
+    second: bananacat_43
+  - first:
+      213: 3191083805679587473
+    second: bananacat_44
+  - first:
+      213: -9186097477599131175
+    second: bananacat_45
+  - first:
+      213: 2253935014573568679
+    second: bananacat_46
+  - first:
+      213: -9001980233367708144
+    second: bananacat_47
+  - first:
+      213: -1779825905513556749
+    second: bananacat_48
+  - first:
+      213: -7857608936440936999
+    second: bananacat_49
+  - first:
+      213: 4535185998797412012
+    second: bananacat_50
+  - first:
+      213: 1560077245542307294
+    second: bananacat_51
+  - first:
+      213: 8356376332971370691
+    second: bananacat_52
+  - first:
+      213: -7820210170527205371
+    second: bananacat_53
+  - first:
+      213: -4837494453159829230
+    second: bananacat_54
+  - first:
+      213: 9114604735219329105
+    second: bananacat_55
+  - first:
+      213: -8711211942902302914
+    second: bananacat_56
+  - first:
+      213: -6975662768911289313
+    second: bananacat_57
+  - first:
+      213: -390296320091408751
+    second: bananacat_58
+  - first:
+      213: -6934981960973755055
+    second: bananacat_59
+  - first:
+      213: -203871317125261111
+    second: bananacat_60
+  - first:
+      213: 8183836450389017098
+    second: bananacat_61
+  - first:
+      213: -9021931086550394650
+    second: bananacat_62
+  - first:
+      213: 2777333008167030750
+    second: bananacat_63
+  - first:
+      213: 4503363821340961887
+    second: bananacat_64
+  - first:
+      213: -7495719095000712557
+    second: bananacat_65
+  - first:
+      213: -8717627111426327865
+    second: bananacat_66
+  - first:
+      213: 3165356125295587421
+    second: bananacat_67
+  - first:
+      213: 4141649451745546959
+    second: bananacat_68
+  - first:
+      213: -2253328191388096718
+    second: bananacat_69
+  - first:
+      213: -4973843493106833380
+    second: bananacat_70
+  - first:
+      213: 6444484537420449767
+    second: bananacat_71
+  - first:
+      213: 2811710142720355482
+    second: bananacat_72
+  - first:
+      213: -4109420914661194098
+    second: bananacat_73
+  - first:
+      213: 8408784158716277461
+    second: bananacat_74
+  - first:
+      213: 7970637763567364789
+    second: bananacat_75
+  - first:
+      213: 7468667821626254004
+    second: bananacat_76
+  - first:
+      213: -8889192207695842045
+    second: bananacat_77
+  - first:
+      213: -2681017495439523181
+    second: bananacat_78
+  - first:
+      213: -9219435682567023432
+    second: bananacat_79
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: bananacat_27
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 159
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c47e8d7a0fcab2db0800000000000000
+      internalID: -4815565226934474932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_28
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 159
+        width: 18
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40e0821280b993620800000000000000
+      internalID: 2754403106332085764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_29
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 159
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 651bafa88835c0960800000000000000
+      internalID: 7569516919615304022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_30
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 159
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7104b6dd77a2f7c0800000000000000
+      internalID: -4038981756883041925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_31
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 162
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f092d1d7a6b6dc0d0800000000000000
+      internalID: -3400944038485087985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_32
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 159
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd3048cd0f67ef030800000000000000
+      internalID: 3530389934768915423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_33
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 160
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da028cdbc2e0767b0800000000000000
+      internalID: -5231196856842182483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_34
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 162
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d81f1a59f47f81450800000000000000
+      internalID: 6059865219811897741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_35
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 159
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 280c12ad788e590e0800000000000000
+      internalID: -2263647567505932158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_36
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 128
+        width: 15
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb32bdade9ccd38e0800000000000000
+      internalID: -1711987300682226756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_37
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 127
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e23cd43f5210ed40800000000000000
+      internalID: 5611505335821677282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_38
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 127
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da9b848491266cf40800000000000000
+      internalID: 5748389835111446957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_39
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 127
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc0263faa8a8da9f0800000000000000
+      internalID: -455555659044871987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_40
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 127
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6e81800244743620800000000000000
+      internalID: 2752953099055369834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_41
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 127
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64d703a575cbf9960800000000000000
+      internalID: 7611008978640731462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_42
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 127
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 382f8c404bb56ae00800000000000000
+      internalID: 1055631991397479043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_43
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 127
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d41a52e224db2830800000000000000
+      internalID: 4047561936414053587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_44
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 128
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 190980e60d1094c20800000000000000
+      internalID: 3191083805679587473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_45
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 96
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d9879f930d648080800000000000000
+      internalID: -9186097477599131175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_46
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 97
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a2f87234f5974f10800000000000000
+      internalID: 2253935014573568679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_47
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 95
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01e970b1caa821380800000000000000
+      internalID: -9001980233367708144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_48
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 96
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f493d3d4c9cc47e0800000000000000
+      internalID: -1779825905513556749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_49
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 97
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d5c08fbd4a24f290800000000000000
+      internalID: -7857608936440936999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bananacat_50
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 97
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca615a033a730fe30800000000000000
+      internalID: 4535185998797412012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fa0e9a6c1ea9a574a8ece65898af95e6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      bananacat_0: -8627779194100689569
+      bananacat_1: -8099916316893668804
+      bananacat_10: -3499874410617518055
+      bananacat_11: -8758060363687266093
+      bananacat_12: -8525625262070674393
+      bananacat_13: -244376181876286531
+      bananacat_14: 7266052751420454262
+      bananacat_15: -1515018449561996583
+      bananacat_16: -8597017170519447126
+      bananacat_17: 3273975061584328083
+      bananacat_18: 742137599500307124
+      bananacat_19: -3177450511068204362
+      bananacat_2: -3111546925047667780
+      bananacat_20: -8871759600100174678
+      bananacat_21: -8079992780468722918
+      bananacat_22: 1853912100353912213
+      bananacat_23: -2036053144310729957
+      bananacat_24: 7649254921660485024
+      bananacat_25: 2354340310555943593
+      bananacat_26: -3698089519657274332
+      bananacat_27: -4815565226934474932
+      bananacat_28: 2754403106332085764
+      bananacat_29: 7569516919615304022
+      bananacat_3: 2567876981332301075
+      bananacat_30: -4038981756883041925
+      bananacat_31: -3400944038485087985
+      bananacat_32: 3530389934768915423
+      bananacat_33: -5231196856842182483
+      bananacat_34: 6059865219811897741
+      bananacat_35: -2263647567505932158
+      bananacat_36: -1711987300682226756
+      bananacat_37: 5611505335821677282
+      bananacat_38: 5748389835111446957
+      bananacat_39: -455555659044871987
+      bananacat_4: -3604504999456236206
+      bananacat_40: 2752953099055369834
+      bananacat_41: 7611008978640731462
+      bananacat_42: 1055631991397479043
+      bananacat_43: 4047561936414053587
+      bananacat_44: 3191083805679587473
+      bananacat_45: -9186097477599131175
+      bananacat_46: 2253935014573568679
+      bananacat_47: -9001980233367708144
+      bananacat_48: -1779825905513556749
+      bananacat_49: -7857608936440936999
+      bananacat_5: -6289756713234838312
+      bananacat_50: 4535185998797412012
+      bananacat_51: 1560077245542307294
+      bananacat_52: 8356376332971370691
+      bananacat_53: -7820210170527205371
+      bananacat_54: -4837494453159829230
+      bananacat_55: 9114604735219329105
+      bananacat_56: -8711211942902302914
+      bananacat_57: -6975662768911289313
+      bananacat_58: -390296320091408751
+      bananacat_59: -6934981960973755055
+      bananacat_6: 4354152706253486814
+      bananacat_60: -203871317125261111
+      bananacat_61: 8183836450389017098
+      bananacat_62: -9021931086550394650
+      bananacat_63: 2777333008167030750
+      bananacat_64: 4503363821340961887
+      bananacat_65: -7495719095000712557
+      bananacat_66: -8717627111426327865
+      bananacat_67: 3165356125295587421
+      bananacat_68: 4141649451745546959
+      bananacat_69: -2253328191388096718
+      bananacat_7: 48155773443241735
+      bananacat_70: -4973843493106833380
+      bananacat_71: 6444484537420449767
+      bananacat_72: 2811710142720355482
+      bananacat_73: -4109420914661194098
+      bananacat_74: 8408784158716277461
+      bananacat_75: 7970637763567364789
+      bananacat_76: 7468667821626254004
+      bananacat_77: -8889192207695842045
+      bananacat_78: -2681017495439523181
+      bananacat_79: -9219435682567023432
+      bananacat_8: -962340106154654175
+      bananacat_9: 6608904735099448051
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,47 +1,56 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;
     public float jumpForce = 8f;
-
     private Rigidbody2D rb;
     private Animator anim;
     private bool isGrounded;
+    private bool hasStarted = false;
+    private bool isDead = false;
+
+    public GameObject mathQuestionPanel; // UI Panel for the question
+    public Image questionImage; // UI Image to display the question
+    public InputField answerInput; // Input field for the answer
+    private int correctAnswer;
+
+    private GroundScroller groundScroller;
+    private ObstacleSpawner obstacleSpawner;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        groundScroller = FindObjectOfType<GroundScroller>();
+        obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
+        mathQuestionPanel.SetActive(false); // Hide the panel at start
     }
 
     void Update()
     {
-        // Handle jumping
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (isDead) return; // If the player is dead, no more updates.
+
+        if (!hasStarted && Input.GetKeyDown(KeyCode.Space))
+        {
+            hasStarted = true;
+            anim.SetBool("isRunning", true);
+            groundScroller.StartScrolling();
+            obstacleSpawner.StartGame();
+        }
+
+        if (hasStarted && Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Jump();
-        }
-
-        // Handle running animation
-        if (isGrounded)
-        {
-            anim.SetBool("isRunning", true);
-        }
-
-        // Move the cat forward
-        if (anim.GetBool("isRunning"))
-        {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
         }
     }
 
     void Jump()
     {
-        // Apply jump force
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        anim.SetBool("isJumping", true); // Trigger jumping animation
-        isGrounded = false; // No longer grounded while jumping
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); // Corrected linearVelocity to velocity
+        anim.SetBool("isJumping", true);
+        isGrounded = false;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -49,14 +58,102 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            anim.SetBool("isJumping", false); // Trigger landing animation
+            anim.SetBool("isJumping", false);
+        }
+        else if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            PauseGame(); // Stop movement
+            StartCoroutine(FetchMathQuestion()); // Call API for the question
         }
     }
 
-    // Call this method if you want to trigger the death animation
+    void PauseGame()
+    {
+        Time.timeScale = 0f; // Pause the game
+        anim.SetBool("isRunning", false);
+    }
+
+    void ResumeGame()
+    {
+        Time.timeScale = 1f; // Resume the game
+        anim.SetBool("isRunning", true);
+        mathQuestionPanel.SetActive(false); // Hide the question panel
+    }
+
+    IEnumerator FetchMathQuestion()
+{
+    string apiUrl = "https://marcconrad.com/uob/banana/api.php"; // The API URL
+    using (WWW request = new WWW(apiUrl))
+    {
+        yield return request;
+        if (!string.IsNullOrEmpty(request.error))
+        {
+            Debug.LogError("API Error: " + request.error);
+            yield break;
+        }
+
+        // Parse JSON response
+        var json = JsonUtility.FromJson<MathQuestionResponse>(request.text);
+        string imageUrl = json.question;  // The URL of the question image
+        correctAnswer = json.solution;    // The correct answer (solution)
+
+        StartCoroutine(LoadImage(imageUrl)); // Load image from URL
+
+        mathQuestionPanel.SetActive(true); // Show the panel with the question
+    }
+}
+
+
+    IEnumerator LoadImage(string url)
+    {
+        using (WWW imageRequest = new WWW(url))
+        {
+            yield return imageRequest;
+            if (!string.IsNullOrEmpty(imageRequest.error))
+            {
+                Debug.LogError("Image Load Error: " + imageRequest.error);
+                yield break;
+            }
+
+            Texture2D texture = imageRequest.texture;
+            questionImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        }
+    }
+
+    public void CheckAnswer()
+    {
+        int playerAnswer;
+        if (int.TryParse(answerInput.text, out playerAnswer))
+        {
+            if (playerAnswer == correctAnswer)
+            {
+                ResumeGame(); // Continue the game
+            }
+            else
+            {
+                Die(); // Player loses
+            }
+        }
+        else
+        {
+            Debug.Log("Invalid input!");
+        }
+    }
+
     public void Die()
     {
-        anim.SetBool("isDead", true); // Trigger death animation
-        this.enabled = false;  // Disable movement after death
+        anim.SetBool("isDead", true);
+        this.enabled = false; // Disable the player controller
+        rb.linearVelocity = Vector2.zero; // Stop the player
+        groundScroller.StopScrolling(); // Stop the ground
+        obstacleSpawner.StopGame(); // Stop the obstacle spawner
     }
+}
+
+// Helper class for JSON parsing
+[System.Serializable]
+public class MathQuestionResponse
+{
+    public string question;  // This is the URL of the question image
+    public int solution;     // This is the solution (previously 'correctAnswer')
 }

@@ -2,46 +2,55 @@ using UnityEngine;
 
 public class GroundScroller : MonoBehaviour
 {
-    public float groundWidth = 20f;  // Set this to match the exact width of your ground sprite
-    private Transform player;
-    private bool hasMoved = false;  // Prevents unnecessary repositioning
+    public float speed = 5f;
+    public Transform[] groundPieces; // Assign both ground pieces here in the inspector
+    private float groundWidth; // Width of each ground piece
+
+    private bool isMoving = false; // Controls movement
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        groundWidth = groundPieces[0].GetComponent<SpriteRenderer>().bounds.size.x; // Get ground width
     }
 
     void Update()
     {
-        if (player.position.x > transform.position.x + groundWidth && !hasMoved)
-        {
-            RepositionGround();
-            hasMoved = true;
-        }
-        else if (player.position.x < transform.position.x)  // Reset if player is behind
-        {
-            hasMoved = false;
-        }
-    }
-    void RepositionGround()
-    {
-        GameObject farthestGround = FindFarthestGround();
-        float newX = farthestGround.transform.position.x + groundWidth;
-        transform.position = new Vector3(newX, transform.position.y, transform.position.z);
-    }
+        if (!isMoving) return;
 
-    GameObject FindFarthestGround()
-    {
-        GameObject[] grounds = GameObject.FindGameObjectsWithTag("Ground"); // Make sure both grounds have the "Ground" tag
-        GameObject farthest = grounds[0];
-
-        foreach (GameObject ground in grounds)
+        foreach (Transform ground in groundPieces)
         {
-            if (ground.transform.position.x > farthest.transform.position.x)
+            // Move each ground piece left
+            ground.Translate(Vector2.left * speed * Time.deltaTime);
+
+            // If the ground piece moves past reset point, reposition it to the right
+            if (ground.position.x <= -groundWidth)
             {
-                farthest = ground;
+                float rightMostX = GetRightMostGroundPosition();
+                ground.position = new Vector2(rightMostX + groundWidth, ground.position.y);
             }
         }
-        return farthest;
+    }
+
+    float GetRightMostGroundPosition()
+    {
+        float rightMostX = groundPieces[0].position.x;
+        foreach (Transform ground in groundPieces)
+        {
+            if (ground.position.x > rightMostX)
+            {
+                rightMostX = ground.position.x;
+            }
+        }
+        return rightMostX;
+    }
+
+    public void StartScrolling()
+    {
+        isMoving = true;
+    }
+
+    public void StopScrolling()
+    {
+        isMoving = false;
     }
 }

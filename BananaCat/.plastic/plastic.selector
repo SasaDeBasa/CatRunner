@@ -1,3 +1,3 @@
 repository "BananaCat/BananaCat@18967047464522@cloud"
   path "/"
-    smartbranch "/main/dev/api"
+    smartbranch "/main/dev/feature-api" 

@@ -80,9 +80,9 @@ public class PlayerController : MonoBehaviour
         mathQuestionPanel.SetActive(false); // Hide the question panel
     }
 
-    IEnumerator FetchMathQuestion()
+IEnumerator FetchMathQuestion()
 {
-    string apiUrl = "https://marcconrad.com/uob/banana/api.php"; // The API URL
+    string apiUrl = "https://marcconrad.com/uob/banana/api.php";
     using (WWW request = new WWW(apiUrl))
     {
         yield return request;
@@ -92,14 +92,15 @@ public class PlayerController : MonoBehaviour
             yield break;
         }
 
-        // Parse JSON response
         var json = JsonUtility.FromJson<MathQuestionResponse>(request.text);
-        string imageUrl = json.question;  // The URL of the question image
-        correctAnswer = json.solution;    // The correct answer (solution)
+        string imageUrl = json.question;
+        correctAnswer = json.solution;
 
-        StartCoroutine(LoadImage(imageUrl)); // Load image from URL
+        Debug.Log("Fetched question image: " + imageUrl);
+        Debug.Log("Fetched correct answer: " + correctAnswer);
 
-        mathQuestionPanel.SetActive(true); // Show the panel with the question
+        StartCoroutine(LoadImage(imageUrl));
+        mathQuestionPanel.SetActive(true);
     }
 }
 

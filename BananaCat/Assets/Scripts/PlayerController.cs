@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Networking;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,8 +24,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        groundScroller = FindObjectOfType<GroundScroller>();
-        obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
+        groundScroller = Object.FindFirstObjectByType<GroundScroller>();
+        obstacleSpawner = Object.FindFirstObjectByType<ObstacleSpawner>();
         mathQuestionPanel.SetActive(false); // Hide the panel at start
     }
 
@@ -80,45 +81,45 @@ public class PlayerController : MonoBehaviour
         mathQuestionPanel.SetActive(false); // Hide the question panel
     }
 
+
     IEnumerator FetchMathQuestion()
-{
-    string apiUrl = "https://marcconrad.com/uob/banana/api.php"; // The API URL
-    using (WWW request = new WWW(apiUrl))
     {
-        yield return request;
-        if (!string.IsNullOrEmpty(request.error))
+        string apiUrl = "https://marcconrad.com/uob/banana/api.php";
+        UnityWebRequest request = UnityWebRequest.Get(apiUrl);
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError("API Error: " + request.error);
             yield break;
         }
-
-        // Parse JSON response
-        var json = JsonUtility.FromJson<MathQuestionResponse>(request.text);
-        string imageUrl = json.question;  // The URL of the question image
-        correctAnswer = json.solution;    // The correct answer (solution)
-
-        StartCoroutine(LoadImage(imageUrl)); // Load image from URL
-
-        mathQuestionPanel.SetActive(true); // Show the panel with the question
+        
+        // Parse the JSON response
+        var json = JsonUtility.FromJson<MathQuestionResponse>(request.downloadHandler.text);
+        string imageUrl = json.question;
+        correctAnswer = json.solution;
+        
+        StartCoroutine(LoadImage(imageUrl));
+        mathQuestionPanel.SetActive(true);
     }
-}
+
 
 
     IEnumerator LoadImage(string url)
     {
-        using (WWW imageRequest = new WWW(url))
-        {
-            yield return imageRequest;
-            if (!string.IsNullOrEmpty(imageRequest.error))
-            {
-                Debug.LogError("Image Load Error: " + imageRequest.error);
-                yield break;
-            }
+        UnityWebRequest imageRequest = UnityWebRequestTexture.GetTexture(url);
+        yield return imageRequest.SendWebRequest();
 
-            Texture2D texture = imageRequest.texture;
-            questionImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        if (imageRequest.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Image Load Error: " + imageRequest.error);
+            yield break;
         }
+
+        Texture2D texture = DownloadHandlerTexture.GetContent(imageRequest);
+        questionImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
+
 
     public void CheckAnswer()
     {

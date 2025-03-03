@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool hasStarted = false;
     private bool isDead = false;
+    public int lives = 3;
+    public Text livesText; //UI element to display lives
+
 
     public GameObject mathQuestionPanel; // UI Panel for the question
     public Image questionImage; // UI Image to display the question
@@ -63,10 +66,13 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
-            PauseGame(); // Stop movement
-            StartCoroutine(FetchMathQuestion()); // Call API for the question
+            // Destroy the obstacle so it doesn't interfere further.
+            Destroy(collision.gameObject);
+            PauseGame();
+            StartCoroutine(FetchMathQuestion());
         }
     }
+
 
     void PauseGame()
     {
@@ -128,11 +134,25 @@ public class PlayerController : MonoBehaviour
         {
             if (playerAnswer == correctAnswer)
             {
+                Debug.Log("Correct Answer!");
                 ResumeGame(); // Continue the game
             }
             else
             {
-                Die(); // Player loses
+                Debug.Log("Wrong Answer!");
+                lives--;  // Reduce a life
+                UpdateLivesUI();
+
+                if (lives <= 0)
+                {
+                    // Trigger game over
+                    Die();
+                }
+                else
+                {
+                    // Optionally, show a brief message and then resume game
+                    ResumeGame(); 
+                }
             }
         }
         else
@@ -141,14 +161,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void UpdateLivesUI()
+    {
+        if (livesText != null)
+        {
+            livesText.text = "Lives: " + lives;
+        }
+    }
+
+
     public void Die()
     {
+        isDead = true;
         anim.SetBool("isDead", true);
         this.enabled = false; // Disable the player controller
         rb.linearVelocity = Vector2.zero; // Stop the player
         groundScroller.StopScrolling(); // Stop the ground
         obstacleSpawner.StopGame(); // Stop the obstacle spawner
+        // Optionally show a "Game Over" UI here.
     }
+
 }
 
 // Helper class for JSON parsing

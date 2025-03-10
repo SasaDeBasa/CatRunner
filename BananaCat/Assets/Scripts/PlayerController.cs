@@ -11,8 +11,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool hasStarted = false;
     private bool isDead = false;
-    public int lives = 3;
-    public Text livesText; //UI element to display lives
+    public int lives = 3; // Player starts with 3 lives
+    public GameObject[] hearts; // Assign Heart UI objects in Inspector
+
 
 
     public GameObject mathQuestionPanel; // UI Panel for the question
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         groundScroller = Object.FindFirstObjectByType<GroundScroller>();
         obstacleSpawner = Object.FindFirstObjectByType<ObstacleSpawner>();
-        mathQuestionPanel.SetActive(false); // Hide the panel at start
+        mathQuestionPanel.SetActive(false); // Hide the panel at start 
     }
 
     void Update()
@@ -126,7 +127,6 @@ public class PlayerController : MonoBehaviour
         questionImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
-
     public void CheckAnswer()
     {
         int playerAnswer;
@@ -134,25 +134,12 @@ public class PlayerController : MonoBehaviour
         {
             if (playerAnswer == correctAnswer)
             {
-                Debug.Log("Correct Answer!");
                 ResumeGame(); // Continue the game
             }
             else
             {
-                Debug.Log("Wrong Answer!");
-                lives--;  // Reduce a life
-                UpdateLivesUI();
-
-                if (lives <= 0)
-                {
-                    // Trigger game over
-                    Die();
-                }
-                else
-                {
-                    // Optionally, show a brief message and then resume game
-                    ResumeGame(); 
-                }
+                ReduceLife();
+                ResumeGame();
             }
         }
         else
@@ -161,11 +148,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void UpdateLivesUI()
+    void ReduceLife()
     {
-        if (livesText != null)
+        if (lives > 0)
         {
-            livesText.text = "Lives: " + lives;
+            lives--; // Decrease life count
+            hearts[lives].SetActive(false); // Hide the corresponding heart UI
+        }
+
+        if (lives <= 0)
+        {
+            Die();
         }
     }
 

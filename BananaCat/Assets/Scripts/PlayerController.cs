@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement; // Required for SceneManager
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,12 +15,13 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
     public int lives = 3; // Player starts with 3 lives
     public GameObject[] hearts; // Assign Heart UI objects in Inspector
-
-
-
-    public GameObject mathQuestionPanel; // UI Panel for the question
+    public GameObject mathQuestionPanel; // Math panel
+    public GameObject gameOverPanel; // Game Over panel
+    public Button restartButton; // Restart button
     public Image questionImage; // UI Image to display the question
     public InputField answerInput; // Input field for the answer
+    public int score = 0; // Player's score
+    public Text scoreText; // UI Text to display the score
     private int correctAnswer;
 
     private GroundScroller groundScroller;
@@ -31,6 +34,9 @@ public class PlayerController : MonoBehaviour
         groundScroller = Object.FindFirstObjectByType<GroundScroller>();
         obstacleSpawner = Object.FindFirstObjectByType<ObstacleSpawner>();
         mathQuestionPanel.SetActive(false); // Hide the panel at start 
+        gameOverPanel.SetActive(false); // Hide Game Over panel at start
+        restartButton.onClick.AddListener(RestartGame); // Attach Restart function
+        UpdateScoreText(); // Ensure score is displayed at start
     }
 
     void Update()
@@ -167,11 +173,30 @@ public class PlayerController : MonoBehaviour
     {
         isDead = true;
         anim.SetBool("isDead", true);
-        this.enabled = false; // Disable the player controller
-        rb.linearVelocity = Vector2.zero; // Stop the player
-        groundScroller.StopScrolling(); // Stop the ground
-        obstacleSpawner.StopGame(); // Stop the obstacle spawner
-        // Optionally show a "Game Over" UI here.
+        mathQuestionPanel.SetActive(false); // Hide math panel
+        this.enabled = false; // Disable player movement
+
+        // Stop the game environment
+        groundScroller.StopScrolling();
+        obstacleSpawner.StopGame();
+
+        // Stop all obstacles
+        foreach (ObstacleMover obstacle in FindObjectsOfType<ObstacleMover>())
+        {
+            obstacle.StopMoving();
+        }
+
+        gameOverPanel.SetActive(true); // Show Game Over UI
+    }
+
+    public void UpdateScoreText()
+    {
+        scoreText.text = "Score: " + score;
+    }
+
+    void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the scene
     }
 
 }

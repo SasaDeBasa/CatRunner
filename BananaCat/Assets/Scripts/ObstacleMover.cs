@@ -16,6 +16,13 @@ public class ObstacleMover : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (transform.position.x < -10f) // If obstacle moves out of view
+        {
+            FindObjectOfType<PlayerController>().score += 1; // Increase score
+            FindObjectOfType<PlayerController>().UpdateScoreText(); // Update UI
+            Destroy(gameObject); // Remove the obstacle
+        }
     }
 
     public void StopMoving()

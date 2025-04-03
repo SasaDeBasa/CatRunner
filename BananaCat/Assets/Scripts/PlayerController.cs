@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement; // Required for SceneManager
-
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,11 +21,14 @@ public class PlayerController : MonoBehaviour
     public Image questionImage; // UI Image to display the question
     public InputField answerInput; // Input field for the answer
     public int score = 0; // Player's score
+    public TMP_Text gameOverStatusText; // Assign in Inspector
+    public Button loginButton; // Assign in Inspector
     public Text scoreText; // UI Text to display the score
     private int correctAnswer;
 
     private GroundScroller groundScroller;
     private ObstacleSpawner obstacleSpawner;
+    private string firebaseDatabaseURL;
 
     void Start()
     {
@@ -37,6 +40,14 @@ public class PlayerController : MonoBehaviour
         gameOverPanel.SetActive(false); // Hide Game Over panel at start
         restartButton.onClick.AddListener(RestartGame); // Attach Restart function
         UpdateScoreText(); // Ensure score is displayed at start
+        if (ScoreManager.Instance != null)
+        {
+            firebaseDatabaseURL = ScoreManager.Instance.GetDatabaseURL();
+        }
+        else
+        {
+            Debug.LogError("ScoreManager not initialized!");
+        }
     }
 
     void Update()
@@ -57,9 +68,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+
+
     void Jump()
     {
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); // Corrected linearVelocity to velocity
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); // Corrected velocity to ensure proper jump behavior
         anim.SetBool("isJumping", true);
         isGrounded = false;
     }
@@ -80,7 +94,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     void PauseGame()
     {
         Time.timeScale = 0f; // Pause the game
@@ -94,7 +107,6 @@ public class PlayerController : MonoBehaviour
         mathQuestionPanel.SetActive(false); // Hide the question panel
     }
 
-
     IEnumerator FetchMathQuestion()
     {
         string apiUrl = "https://marcconrad.com/uob/banana/api.php";
@@ -106,17 +118,15 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("API Error: " + request.error);
             yield break;
         }
-        
+
         // Parse the JSON response
         var json = JsonUtility.FromJson<MathQuestionResponse>(request.downloadHandler.text);
         string imageUrl = json.question;
         correctAnswer = json.solution;
-        
+
         StartCoroutine(LoadImage(imageUrl));
         mathQuestionPanel.SetActive(true);
     }
-
-
 
     IEnumerator LoadImage(string url)
     {
@@ -168,7 +178,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     public void Die()
     {
         isDead = true;
@@ -186,7 +195,18 @@ public class PlayerController : MonoBehaviour
             obstacle.StopMoving();
         }
 
-        gameOverPanel.SetActive(true); // Show Game Over UI
+        // Save the current score
+        PlayerPrefs.SetInt("GameScore", score);
+
+        // Show game over panel with the correct login info
+        UpdateGameOverText();
+        gameOverPanel.SetActive(true);
+
+        // If logged in, submit the score
+        if (PlayerPrefs.HasKey("FirebaseUserID"))
+        {
+            ScoreManager.Instance.SubmitScore(score);
+        }
     }
 
     public void UpdateScoreText()
@@ -198,6 +218,62 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the scene
     }
+
+    public void RedirectToLogin()
+    {
+        PlayerPrefs.SetInt("GameScore", score); // Store the score
+        PlayerPrefs.SetInt("ReturningFromGameOver", 1); // Mark that user came from Game Over
+        SceneManager.LoadScene("Leaderboard"); // Redirect to leaderboard
+    }
+
+    void UpdateGameOverText()
+    {
+        string userId = PlayerPrefs.GetString("FirebaseUserID", "");
+        string username = PlayerPrefs.GetString("Username", "Unknown Player"); // Get username from PlayerPrefs
+
+        if (!string.IsNullOrEmpty(userId))
+        {
+            // Fetch high score from the leaderboard
+            StartCoroutine(FetchHighScoreFromLeaderboard(userId, username));
+        }
+        else
+        {
+            gameOverStatusText.text = "Not logged in. Log in to save your progress.";
+        }
+    }
+
+    private IEnumerator FetchHighScoreFromLeaderboard(string userId, string username)
+    {
+        string url = $"{firebaseDatabaseURL}/leaderboard/{userId}.json"; // URL to fetch score for the logged-in user
+
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                string response = request.downloadHandler.text;
+
+                if (!string.IsNullOrEmpty(response) && response != "null")
+                {
+                    var playerData = JsonUtility.FromJson<LeaderboardEntryData>(response);
+                    int highScore = playerData.score;
+
+                    gameOverStatusText.text = $"Logged in as {username}\nHighest Score: {highScore}";
+                }
+                else
+                {
+                    gameOverStatusText.text = $"Logged in as {username}\nNo high score yet.";
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to fetch score from leaderboard: " + request.error);
+                gameOverStatusText.text = $"Logged in as {username}\nError fetching high score.";
+            }
+        }
+    }
+
 
 }
 

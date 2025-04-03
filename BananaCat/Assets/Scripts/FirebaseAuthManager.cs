@@ -1,0 +1,265 @@
+using UnityEngine;
+using UnityEngine.Networking;
+using System.Collections;
+using TMPro;
+
+public class FirebaseAuthManager : MonoBehaviour
+{
+    private string firebaseAuthUrl = "https://identitytoolkit.googleapis.com/v1/accounts:";
+    private string apiKey = "AIzaSyC_QOhwSFPVgRd4UO-qi0B3I-Hn8I-eaps"; // Firebase API key
+
+    // UI Elements for Register and Login
+    public TMP_InputField emailInput, passwordInput, usernameInput;
+    public TMP_InputField loginEmailInput, loginPasswordInput;
+    public UIManager uiManager;
+    public LeaderboardManager leaderboardManager; // Reference to update rank UI on logout
+
+    public TextMeshProUGUI registerErrorText;
+    public TextMeshProUGUI loginErrorText;
+
+    private void Start()
+    {
+        uiManager.UpdateAuthUI(); // Ensure correct UI on start
+    }
+
+    public void RegisterUser()
+    {
+        ClearErrorMessages();
+        StartCoroutine(RegisterCoroutine());
+    }
+
+    private IEnumerator RegisterCoroutine()
+    {
+        string url = firebaseAuthUrl + "signUp?key=" + apiKey;
+        string json = "{\"email\":\"" + emailInput.text + "\",\"password\":\"" + passwordInput.text + "\",\"returnSecureToken\":true}";
+
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+        {
+            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                FirebaseAuthResponse response = JsonUtility.FromJson<FirebaseAuthResponse>(request.downloadHandler.text);
+
+                // Successfully registered, now save the username to the database
+                string userId = response.localId;
+                string username = usernameInput.text; // Get the username from the input field
+
+                // Prepare the user data to be stored (username, email, and default score of 0)
+                User user = new User(username, emailInput.text, 0); // Make sure to pass username, email, and score
+
+                // Store the username in Firebase Realtime Database under 'users/{userId}'
+                string databaseUrl = "https://catrunner-2e1ee-default-rtdb.firebaseio.com/users/" + userId + ".json"; // Modify this with your Firebase Realtime DB URL
+                string userJson = JsonUtility.ToJson(user);
+
+                using (UnityWebRequest dbRequest = new UnityWebRequest(databaseUrl, "PUT"))
+                {
+                    byte[] dbBodyRaw = System.Text.Encoding.UTF8.GetBytes(userJson);  // Renamed the variable here
+                    dbRequest.uploadHandler = new UploadHandlerRaw(dbBodyRaw);  // Use dbBodyRaw
+                    dbRequest.downloadHandler = new DownloadHandlerBuffer();
+                    dbRequest.SetRequestHeader("Content-Type", "application/json");
+
+                    yield return dbRequest.SendWebRequest();
+
+                    if (dbRequest.result == UnityWebRequest.Result.Success)
+                    {
+                        Debug.Log("User data saved successfully to Firebase Realtime Database.");
+                        registerErrorText.text = "Registration successful! Please log in.";
+                        uiManager.ShowLogin(); // Show login UI after successful registration
+                    }
+                    else
+                    {
+                        registerErrorText.text = "Error saving user data: " + dbRequest.error;
+                        Debug.LogError("Error saving user data: " + dbRequest.error);
+                    }
+                }
+            }
+            else
+            {
+                FirebaseError errorResponse = JsonUtility.FromJson<FirebaseError>(request.downloadHandler.text);
+                registerErrorText.text = errorResponse != null && errorResponse.error != null ?
+                    "Error: " + errorResponse.error.message : "Registration failed.";
+                Debug.LogError("Registration Failed: " + request.downloadHandler.text);
+            }
+        }
+    }
+
+
+
+
+
+    public void LoginUser()
+    {
+        string email = loginEmailInput.text.Trim();
+        string password = loginPasswordInput.text.Trim();
+
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        {
+            loginErrorText.text = "Email or Password cannot be empty!";
+            Debug.LogError("Email or Password cannot be empty!");
+            return;
+        }
+
+        ClearErrorMessages();
+        StartCoroutine(LoginCoroutine(email, password));
+    }
+
+    private IEnumerator LoginCoroutine(string email, string password)
+    {
+        string url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" + apiKey;
+        string json = $"{{\"email\":\"{email}\",\"password\":\"{password}\",\"returnSecureToken\":true}}";
+
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+        {
+            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                FirebaseLoginResponse response = JsonUtility.FromJson<FirebaseLoginResponse>(request.downloadHandler.text);
+
+                if (!string.IsNullOrEmpty(response.idToken))
+                {
+                    // Store ID Token and User ID in PlayerPrefs
+                    PlayerPrefs.SetString("FirebaseUserID", response.localId);
+                    PlayerPrefs.SetString("FirebaseToken", response.idToken);
+
+                    // Retrieve username from Firebase Realtime Database
+                    string userId = response.localId;
+                    string databaseUrl = $"https://catrunner-2e1ee-default-rtdb.firebaseio.com/users/{userId}.json";
+
+                    UnityWebRequest dbRequest = UnityWebRequest.Get(databaseUrl);
+                    yield return dbRequest.SendWebRequest();
+
+                    if (dbRequest.result == UnityWebRequest.Result.Success)
+                    {
+                        // Parse user data and save username to PlayerPrefs
+                        string userJson = dbRequest.downloadHandler.text;
+                        User user = JsonUtility.FromJson<User>(userJson);
+                        PlayerPrefs.SetString("Username", user.username);  // Save the username
+                        PlayerPrefs.Save();
+
+                        Debug.Log("User logged in. New ID: " + response.localId);
+
+                        uiManager.ShowLeaderboard();
+                        uiManager.UpdateAuthUI();
+
+                        if (leaderboardManager != null)
+                        {
+                            leaderboardManager.FetchLeaderboard();
+                        }
+                    }
+                    else
+                    {
+                        loginErrorText.text = "Failed to retrieve user data.";
+                        Debug.LogError("Error retrieving user data: " + dbRequest.error);
+                    }
+                }
+                else
+                {
+                    loginErrorText.text = "Login failed. No token received.";
+                    Debug.LogError("Login Failed: No ID token received.");
+                }
+            }
+            else
+            {
+                FirebaseError errorResponse = JsonUtility.FromJson<FirebaseError>(request.downloadHandler.text);
+                loginErrorText.text = errorResponse != null && errorResponse.error != null ?
+                    "Error: " + errorResponse.error.message : "Login failed.";
+                Debug.LogError("Login Failed: " + request.downloadHandler.text);
+            }
+        }
+    }
+
+
+    public void LogoutUser()
+    {
+        Debug.Log("Logging out...");
+
+        PlayerPrefs.DeleteKey("FirebaseUserID");
+        PlayerPrefs.DeleteKey("FirebaseToken");
+        PlayerPrefs.Save();
+
+        Debug.Log("User logged out.");
+
+        uiManager.ShowLogin();
+        uiManager.UpdateAuthUI();
+        ClearErrorMessages();
+
+        // Clear input fields
+        loginEmailInput.text = "";
+        loginPasswordInput.text = "";
+        emailInput.text = "";
+        passwordInput.text = "";
+        usernameInput.text = "";
+
+        if (leaderboardManager != null)
+        {
+            leaderboardManager.ClearLeaderboardUI();
+            leaderboardManager.playerRankText.text = "Login to track your rank!";
+        }
+    }
+
+    public void ClearErrorMessages()
+    {
+        if (registerErrorText != null)
+            registerErrorText.text = "";
+
+        if (loginErrorText != null)
+            loginErrorText.text = "";
+    }
+
+}
+[System.Serializable]
+public class User
+{
+    public string username;
+    public string email;
+    public int score;
+
+    public User(string username, string email, int score)
+    {
+        this.username = username;
+        this.email = email;
+        this.score = score;
+    }
+}
+
+// Firebase Response Classes
+[System.Serializable]
+public class FirebaseAuthResponse
+{
+    public string idToken;
+    public string email;
+    public string refreshToken;
+    public string expiresIn;
+    public string localId;
+}
+
+[System.Serializable]
+public class FirebaseLoginResponse
+{
+    public string idToken;
+    public string localId;
+}
+
+[System.Serializable]
+public class FirebaseError
+{
+    public FirebaseErrorDetail error;
+}
+
+[System.Serializable]
+public class FirebaseErrorDetail
+{
+    public string message;
+}

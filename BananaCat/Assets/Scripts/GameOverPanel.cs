@@ -1,0 +1,33 @@
+using UnityEngine;
+
+public class GameOverPanel : MonoBehaviour
+{
+    public GameObject loginButton; // Reference to the login button in the GameOver panel
+
+    void Start()
+    {
+        CheckLoginStatus();
+    }
+
+    void CheckLoginStatus()
+    {
+        string userId = PlayerPrefs.GetString("FirebaseUserID", "");
+        
+        if (!string.IsNullOrEmpty(userId))
+        {
+            // User is logged in, hide the login button
+            if (loginButton != null)
+            {
+                loginButton.SetActive(false);
+            }
+        }
+        else
+        {
+            // User is not logged in, show the login button
+            if (loginButton != null)
+            {
+                loginButton.SetActive(true);
+            }
+        }
+    }
+}

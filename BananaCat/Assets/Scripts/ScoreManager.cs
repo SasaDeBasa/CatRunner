@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 
+//parts of the following code has been generated using AI
+
 public class ScoreManager : MonoBehaviour
 {
     private static ScoreManager instance;

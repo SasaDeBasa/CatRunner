@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     private ObstacleSpawner obstacleSpawner;
     private string firebaseDatabaseURL;
 
+    //parts of the following code has been generated using AI
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

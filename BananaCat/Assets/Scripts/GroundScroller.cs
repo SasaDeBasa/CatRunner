@@ -54,3 +54,4 @@ public class GroundScroller : MonoBehaviour
         isMoving = false;
     }
 }
+//this idea was given by a fellow student from CS batch - Janith Amantha (tho the code was my own implementation has to give credit to him personally)

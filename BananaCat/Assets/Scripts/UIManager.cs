@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//parts of the following code has been generated using AI
+
 public class UIManager : MonoBehaviour
 {
     public GameObject leaderboardPanel;

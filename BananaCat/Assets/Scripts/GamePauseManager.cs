@@ -10,9 +10,10 @@ public class GamePauseManager : MonoBehaviour
 
     void Start()
     {
-        pausePanel.SetActive(false); // Hide the pause panel at the start
+        pausePanel.SetActive(false); // Hide pause panel at start
     }
 
+    //method to toggle pause state is generated
     public void TogglePause()
     {
         isPaused = !isPaused;

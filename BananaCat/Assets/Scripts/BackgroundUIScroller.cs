@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//this class was generated using generative AI
 public class BackgroundUIScroller : MonoBehaviour
 {
     public RawImage backgroundImage;

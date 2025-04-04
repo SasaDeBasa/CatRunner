@@ -7,6 +7,8 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;  // To handle scene transitions
 
+
+//parts of the following code has been generated using AI
 public class LeaderboardManager : MonoBehaviour
 {
     public GameObject leaderboardEntryPrefab;
